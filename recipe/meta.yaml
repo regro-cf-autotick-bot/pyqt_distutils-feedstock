@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyqt-distutils-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pyqt-distutils-{{ version }}.tar.gz
   sha256: ee5b8c30d3b0a473a5c23e43b2a29ce8e47fa7b48d8dc91816953da37bc053e8
 
 build:
@@ -14,15 +14,15 @@ build:
     - pyuicfg = pyqt_distutils.pyuicfg:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - docopt
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -33,6 +33,7 @@ test:
     - pyuicfg --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/ColinDuquesnoy/pyqt_distutils
